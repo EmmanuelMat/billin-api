@@ -1,0 +1,6 @@
+{
+    "name": "Hardware Store",
+    "database" :{
+        "name": "mongodb"
+    }
+}

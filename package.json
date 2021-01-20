@@ -1,0 +1,33 @@
+{
+  "name": "fgk-api-nodejs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@mongoosejs/double": "^0.2.0",
+    "bcrypt": "^5.0.0",
+    "config": "^3.3.3",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "express-async-errors": "^3.1.1",
+    "fawn": "^2.1.5",
+    "fs": "0.0.1-security",
+    "helmet": "^4.3.1",
+    "joi": "^17.3.0",
+    "jsonwebtoken": "^8.5.1",
+    "lodash": "^4.17.20",
+    "mongoose": "^5.11.9",
+    "morgan": "^1.10.0",
+    "node-thermal-printer": "^4.1.2",
+    "node-thermal-printer-roobee": "^3.0.0",
+    "nodemon": "^2.0.6",
+    "pg": "^8.5.1",
+    "printer": "^0.4.0"
+  }
+}
