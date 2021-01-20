@@ -47,6 +47,7 @@ const RECIEPT_VALIDATION = Joi.object({
 });
 module.exports = {
   USER_VALIDATOR,
+  
   AUTH_VALIDATOR,
   TAX_RECIPT_VALIDATOR,
   CLIENT_VALIDATOR,
