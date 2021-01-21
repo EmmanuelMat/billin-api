@@ -8,11 +8,11 @@ async function get() {
   return await Model.find();
 }
 
-async function auth(req) {
-  validate(req.body, validators.AUTH_VALIDATOR);
-  let user = await Model.findOne({ email: req.body.email });
+async function auth(data) {
+  validate(data, validators.AUTH_VALIDATOR);
+  let user = await Model.findOne({ email: data.email });
   if (!user) throw new Error(ERROR_MESSAGES.INVALID_USER_PASSWORD);
-  const validPassword = await bcrypt.compare(req.body.password, user.password);
+  const validPassword = await bcrypt.compare(data.password, user.password);
   if (!validPassword) throw new Error(ERROR_MESSAGES.INVALID_USER_PASSWORD);
   return user.generateToken();
 }

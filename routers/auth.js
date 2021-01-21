@@ -11,7 +11,7 @@ router.get("/me", authMiddleware, async (req, res) => {
 });
 
 router.post("/", async (req, res) => {
-  const result = await service.auth(req);
+  const result = await service.auth(req.body);
   res.json({ token: result });
 });
 
