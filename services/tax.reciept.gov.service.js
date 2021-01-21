@@ -6,8 +6,8 @@ async function get() {
   return await Model.find();
 }
 
-async function post(req) {
-  const model = _.pick(req.body, ["serie", "type", "name"]);
+async function post(data) {
+  const model = _.pick(data, ["serie", "type", "name"]);
   return await new Model(model).save();
 }
 

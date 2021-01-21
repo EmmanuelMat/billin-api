@@ -18,11 +18,11 @@ async function getLast(taxReciept) {
   });
 }
 
-async function post(req) {
-  console.log(req);
+async function post(data) {
+  console.log(data);
 
-  const model = _.pick(req, ["taxReciept", "type", "sequence", "isUsed"]);
-  validate(req, validators.TAX_RECIPT_VALIDATOR);
+  const model = _.pick(data, ["taxReciept", "type", "sequence", "isUsed"]);
+  validate(data, validators.TAX_RECIPT_VALIDATOR);
   return await new Model(model).save();
 }
 
