@@ -13,8 +13,8 @@ async function get(pageNumber = 1, pageSize = 10, name = "", code = 0) {
   return { model, count: { pageNumber, pageSize, count } };
 }
 
-async function post(req) {
-  const model = _.pick(req.body, [
+async function post(data) {
+  const model = _.pick(data, [
     "name",
     "description",
     "cost",
