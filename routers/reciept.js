@@ -2,31 +2,31 @@ const express = require("express");
 const router = express.Router();
 const service = require("../services/reciept.service");
 
-router.get("/", async (req, res) => {
+router.get("/", async (data, res) => {
   const model = await service.get();
   res.json(model);
 });
 
-router.get("/byid/:id", async (req, res) => {
-  const { id } = req.params;
+router.get("/byid/:id", async (data, res) => {
+  const { id } = data.params;
   const model = await service.getById(id);
   res.json(model);
 });
 
-router.get("/print", async (req, res) => {
-  const { id } = req.params;
+router.get("/print", async (data, res) => {
+  const { id } = data.params;
   const model = await service.getById(id);
   printReciept(model)
   res.send(true);;
 });
 
-router.get("/last", async (req, res) => {
+router.get("/last", async (data, res) => {
   const model = await service.getLastBill();
   res.json(model);
 });
 
-router.post("/", async (req, res) => {
-  const result = await service.post(req);
+router.post("/", async (data, res) => {
+  const result = await service.post(data);
   res.json(result);
 });
 
