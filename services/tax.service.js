@@ -1,4 +1,3 @@
-const { isValidObjectId } = require("mongoose");
 const Model = require("../schemas/tax.schema");
 const _ = require("lodash");
 
@@ -6,8 +5,8 @@ async function get() {
   return await Model.find();
 }
 
-async function post(req) {
-  const model = _.pick(req.body, ["porcentage", "taxPorcentage"]);
+async function post(data) {
+  const model = _.pick(data, ["porcentage", "taxPorcentage"]);
   return await new Model(model).save();
 }
 
