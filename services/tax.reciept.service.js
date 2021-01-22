@@ -18,11 +18,9 @@ async function getLast(taxReciept) {
   });
 }
 
-async function post(req) {
-  console.log(req);
-
-  const model = _.pick(req, ["taxReciept", "type", "sequence", "isUsed"]);
-  validate(req, validators.TAX_RECIPT_VALIDATOR);
+async function post(data) {
+  const model = _.pick(data, ["taxReciept", "type", "sequence", "isUsed"]);
+  validate(data, validators.TAX_RECIPT_VALIDATOR);
   return await new Model(model).save();
 }
 
@@ -30,4 +28,23 @@ async function exits(_id) {
   return await Model.exists(_id);
 }
 
-module.exports = { get, post, exits, getLast };
+async function update(data) {
+  validate(datga, validators.TAX_RECIPT_VALIDATOR);
+  return await Model.updateOne(
+    { _id: data._id },
+    {
+      $set: {
+        taxReciept: data.taxReciept,
+        sequence: data.sequence,
+        isUsed: data.isUsed,
+        createDate: data.createDate,
+      },
+    }
+  );
+}
+
+async function remove(_id) {
+  return await Model.deleteOne({ _id });
+}
+
+module.exports = { get, post, exits, getLast, update, remove };
