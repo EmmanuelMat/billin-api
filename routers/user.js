@@ -3,13 +3,13 @@ const router = express.Router();
 const _ = require("lodash");
 const service = require("../services/user.service");
 
-router.get("/", async (data, res) => {
+router.get("/", async (req, res) => {
   const model = await service.get();
   res.json(model);
 });
 
-router.post("/", async (data, res) => {
-  const result = await service.post(data);
+router.post("/", async (req, res) => {
+  const result = await service.post(req.body);
   res
     .header("x-auth-token", result.token)
     .json(_.pick(result.payload, ["email", "name", "employeeNumber", "_id"]));
