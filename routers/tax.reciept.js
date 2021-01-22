@@ -18,4 +18,15 @@ router.post("/", async (req, res) => {
   res.json(result);
 });
 
+router.post("/edit", async (req, res) => {
+  const model = await service.update(req.body);
+  res.json(model);
+});
+
+router.delete("/", async (req, res) => {
+  const { _id } = req.query;
+  const model = await service.remove(_id);
+  res.json(model);
+});
+
 module.exports = router;

@@ -28,4 +28,23 @@ async function exits(_id) {
   return await Model.exists(_id);
 }
 
-module.exports = { get, post, exits, getLast };
+async function update(data) {
+  validate(datga, validators.TAX_RECIPT_VALIDATOR);
+  return await Model.updateOne(
+    { _id: data._id },
+    {
+      $set: {
+        taxReciept: data.taxReciept,
+        sequence: data.sequence,
+        isUsed: data.isUsed,
+        createDate: data.createDate,
+      },
+    }
+  );
+}
+
+async function remove(_id) {
+  return await Model.deleteOne({ _id });
+}
+
+module.exports = { get, post, exits, getLast, update, remove };
