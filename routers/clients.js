@@ -2,12 +2,12 @@ const express = require("express");
 const router = express.Router();
 const service = require("../services/client.service");
 
-router.get("/", async (data, res) => {
+router.get("/", async (req, res) => {
   const model = await service.get();
   res.json(model);
 });
 
-router.get("/by", async (data, res) => {
+router.get("/by", async (req, res) => {
   const { name, id } = req.query;
   const model = await service.getByNameOrCode(name, id);
 
@@ -16,8 +16,8 @@ router.get("/by", async (data, res) => {
   res.json(model);
 });
 
-router.post("/", async (data, res) => {
-  const result = await service.post(req);
+router.post("/", async (req, res) => {
+  const result = await service.post(req.body);
   res.json(result);
 });
 
