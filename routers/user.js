@@ -9,7 +9,7 @@ router.get("/", async (req, res) => {
 });
 
 router.post("/", async (req, res) => {
-  const result = await service.post(req);
+  const result = await service.post(req.body);
   res
     .header("x-auth-token", result.token)
     .json(_.pick(result.payload, ["email", "name", "employeeNumber", "_id"]));
