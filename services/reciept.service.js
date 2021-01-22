@@ -36,7 +36,7 @@ async function post(req) {
   let client = req.body.client._id;
   const isClient = await clientService.exits(client);
   const billNumber = Math.floor(1000 + Math.random() * 9000);
-  if (!isClient) {
+  if (isClient === null) {
     client = await clientService.post(req.body.client);
   }
  clientService.update(req.body.client);
