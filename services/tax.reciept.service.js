@@ -19,8 +19,6 @@ async function getLast(taxReciept) {
 }
 
 async function post(data) {
-  console.log(data);
-
   const model = _.pick(data, ["taxReciept", "type", "sequence", "isUsed"]);
   validate(data, validators.TAX_RECIPT_VALIDATOR);
   return await new Model(model).save();

@@ -2,13 +2,13 @@ const express = require('express');
 const router = express.Router();
 const service = require('../services/tax.reciept.gov.service');
 
-router.get('/', async (data, res) => {
+router.get('/', async (req, res) => {
     const model = await service.get();
     res.json(model);
 });
 
-router.post('/', async (data, res) => {
-    const result = await service.post(data);
+router.post('/', async (req, res) => {
+    const result = await service.post(req.body);
     res.json(result);
 });
 
