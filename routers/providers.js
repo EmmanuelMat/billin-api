@@ -8,7 +8,7 @@ router.get("/", async(req, res) => {
 });
 
 router.post("/", async (req, res) => {
-  const result = await Service.post(req);
+  const result = await Service.post(req.body);
   res.json(result);
 });
 module.exports = router;
