@@ -24,7 +24,6 @@ async function post(data) {
   let model = _.pick(data, ["name", "taxId", "pNumber", "cNumber", "address"]);
   model.code = code;
   validate(model, CLIENT_VALIDATOR);
-
   return await new Model(model).save();
 }
 

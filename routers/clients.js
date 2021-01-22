@@ -17,7 +17,7 @@ router.get("/by", async (req, res) => {
 });
 
 router.post("/", async (req, res) => {
-  const result = await service.post(req);
+  const result = await service.post(req.body);
   res.json(result);
 });
 

@@ -12,10 +12,10 @@ async function getUserByID(_id) {
   return await Model.findOne({ _id });
 }
 
-async function post(req) {
-  validate(req.body, validators.USER_VALIDATOR);
+async function post(data) {
+  validate(data, validators.USER_VALIDATOR);
   const schema = new Model(
-    _.pick(req.body, ["email", "password", "name", "employeeNumber"])
+    _.pick(data, ["email", "password", "name", "employeeNumber"])
   );
   let salt = await bcrypt.genSalt(10);
   schema.password = await bcrypt.hash(schema.password, salt);
