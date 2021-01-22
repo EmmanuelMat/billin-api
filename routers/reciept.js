@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const service = require("../services/reciept.service");
+const printService = require("../services/print.reciept.service");
 
 router.get("/", async (req, res) => {
   const model = await service.get();
@@ -14,9 +15,10 @@ router.get("/byid/:id", async (req, res) => {
 });
 
 router.get("/print", async (req, res) => {
-  const { id } = req.params;
+  const { id } = req.query;
+  console.log(id);
   const model = await service.getById(id);
-  printReciept(model)
+  printService.printReciept(model)
   res.send(true);;
 });
 
@@ -32,21 +34,4 @@ router.post("/", async (req, res) => {
 
 module.exports = router;
 
-/**{"totalPrice": 5000,
-"subTotal": 4366,
-'tax': 799,
-"isCredit" false,
-"clientId": "5ff53e2f6b2202fde5e92b50",
-payDate: null
-"details": [
-  {
-    "productId": "5ff3d9dfd93e2be06cd46676",
-    "sellPrice": 35, 
-    "quantity": 150
-  }, 
-  {
-    "productId": "5ff3d7f5a7e1a2de62436208",
-    "sellPrice": 25, 
-    "quantity": 100
-  }
-]}**/
+
