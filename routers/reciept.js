@@ -16,7 +16,6 @@ router.get("/byid/:id", async (req, res) => {
 
 router.get("/print", async (req, res) => {
   const { id } = req.query;
-  console.log(id);
   const model = await service.getById(id);
   printService.printReciept(model)
   res.send(true);;

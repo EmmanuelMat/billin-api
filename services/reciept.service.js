@@ -4,6 +4,8 @@ const clientService = require("./client.service");
 const _ = require("lodash");
 const { _getLast, validate } = require("../global/helpers");
 const { RECIEPT_VALIDATION } = require("../validators/validators");
+const { getUserByID } = require("./user.service");
+const { model } = require("mongoose");
 
 const PUPULATE_RECIEPT = [
   {
@@ -28,20 +30,20 @@ const PUPULATE_RECIEPT = [
   },
 ];
 
-async function get() {
-  return await Model.find().populate(PUPULATE_RECIEPT);
+async function get(pageNumber = 1, pageSize = 10) {
+  const data =  await Model.find()
+  .populate(PUPULATE_RECIEPT)
+  .skip((parseInt(pageNumber) - 1) * parseInt(pageSize))
+    .limit(parseInt(pageSize));
+  const count = await Model.countDocuments();
+  return { data, count: { pageNumber, pageSize: data.length, count } };
 }
 
-async function post(req) {
-  let client = req.body.client._id;
-  const isClient = await clientService.exits(client);
+async function post(data) {
+  let client = await  saveUpdateClient(data.client);
   const billNumber = Math.floor(1000 + Math.random() * 9000);
-  if (isClient === null) {
-    client = await clientService.post(req.body.client);
-  }
- clientService.update(req.body.client);
-  const taxReciept = await taxRservice.post(req.body.taxReciept);
-  const model = _.pick(req.body, [
+  const taxReciept = await taxRservice.post(data.taxReciept);
+  const model = _.pick(data, [
     "totalPrice",
     "subTotal",
     "tax",
@@ -50,14 +52,12 @@ async function post(req) {
     "client",
     "details",
     "discount",
-    "notes"
+    "notes",
   ]);
   model.client = client;
   model.taxReciept = taxReciept._id;
   model.billNumer = billNumber;
-
   validate(model, RECIEPT_VALIDATION);
-
   return await new Model(model).save();
 }
 
@@ -67,6 +67,18 @@ async function getLastBill() {
 
 async function getById(_id) {
   return Model.findOne({ _id }).populate(PUPULATE_RECIEPT);
+}
+
+async function saveUpdateClient(client) {
+  const isClient = await clientService.exits(client._id);
+  if (!isClient) {
+    client = await clientService.post(client);
+    client = client._id;
+  } else {
+    client = await clientService.update(client);
+    client = client._id;
+  }
+  return client._id;
 }
 
 module.exports = { get, post, getLastBill, getById };

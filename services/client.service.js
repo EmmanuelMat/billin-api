@@ -31,9 +31,9 @@ async function exits(_id) {
   return await Model.exists({ _id });
 }
 
-async function update(data) {
-  return await Model.updateOne(
-    { _id: data._id },
+async function update(data) {  
+  return await Model.findByIdAndUpdate(
+     data._id,
     {
       $set: {
         name: data.name,
