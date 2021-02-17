@@ -1,29 +1,5 @@
-const p = require("printer");
-
-const genTaxtReciept = (gov, sequence) => `${gov.serie}${gov.type}${sequence}`;
-function pad(n, width, z) {
-  z = z || " ";
-  n = n + "";
-  return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
-}
-function name(data) {
-  return data
-    .map(
-      (item) => `${item.code}          ${
-        item.quantity
-      }    ${item.sellPrice.toFixed(2)}      ${pad(
-        (item.sellPrice * item.quantity).toFixed(2).toString(),
-        7,
-        " "
-      )} 
-      ${item.product.name.toLowerCase()}
-    `
-    )
-    .join("") 
-    .replace(/^\s+/gm, "");
-}
-var btn = (bill) => `
-      FERRETERIA GUERRERO KADEYHE SRL
+module.exports = (bill) => `
+      FERRETERIA GUERRERO KADEYHßE SRL
    C/Duarte #49, Haina S.C, Frente Altice
             Tel: (809) 957-5060
               RNC: 131-93956-2
@@ -71,21 +47,3 @@ Note: ${bill.notes}
 
 
 `;
-
-function printReciept(bill) {
-  const template = btn(bill);
-  p.printDirect({
-    data: template,
-    type: "RAW",
-    success: function (jobID) {
-      console.log("sent to printer with ID: " + jobID);
-    },
-    error: function (err) {
-      console.log(err);
-    },
-  });
-}
-
-module.exports = {
-  printReciept,
-};

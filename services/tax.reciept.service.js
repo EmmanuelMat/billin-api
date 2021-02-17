@@ -28,4 +28,8 @@ async function exits(_id) {
   return await Model.exists(_id);
 }
 
-module.exports = { get, post, exits, getLast };
+
+async function update(data) {
+  return await Model.findOneAndUpdate({ _id: data._id }, { ...data });
+}
+module.exports = {update, get, post, exits, getLast };

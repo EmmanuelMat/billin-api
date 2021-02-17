@@ -4,8 +4,6 @@ const clientService = require("./client.service");
 const _ = require("lodash");
 const { _getLast, validate } = require("../global/helpers");
 const { RECIEPT_VALIDATION } = require("../validators/validators");
-const { getUserByID } = require("./user.service");
-const { model } = require("mongoose");
 
 const PUPULATE_RECIEPT = [
   {
@@ -13,7 +11,6 @@ const PUPULATE_RECIEPT = [
     populate: {
       path: "product",
       model: "Product",
-      select: ["name", "description", "code"],
     },
   },
   {
@@ -30,17 +27,18 @@ const PUPULATE_RECIEPT = [
   },
 ];
 
-async function get(pageNumber = 1, pageSize = 10) {
-  const data =  await Model.find()
-  .populate(PUPULATE_RECIEPT)
-  .skip((parseInt(pageNumber) - 1) * parseInt(pageSize))
+async function get(pageNumber = 1, pageSize = 10, code) {
+  // const regExp = new RegExp(`.*${code}.*`, "i")
+  const data = await Model.find({ $or: [{ billNumer: code }, {}] })
+    .populate(PUPULATE_RECIEPT)
+    .skip((parseInt(pageNumber) - 1) * parseInt(pageSize))
     .limit(parseInt(pageSize));
   const count = await Model.countDocuments();
   return { data, count: { pageNumber, pageSize: data.length, count } };
 }
 
 async function post(data) {
-  let client = await  saveUpdateClient(data.client);
+  let client = await saveUpdateClient(data.client);
   const billNumber = Math.floor(1000 + Math.random() * 9000);
   const taxReciept = await taxRservice.post(data.taxReciept);
   const model = _.pick(data, [
@@ -81,4 +79,10 @@ async function saveUpdateClient(client) {
   return client._id;
 }
 
-module.exports = { get, post, getLastBill, getById };
+async function update(data) {
+  console.log(test, "test");
+  return {test, test2}
+}
+
+
+module.exports = { update, get, post, getLastBill, getById };

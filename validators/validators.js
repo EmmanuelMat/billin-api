@@ -1,5 +1,15 @@
 const Joi = require("joi");
 
+const PRODUCT = Joi.object({
+  name: Joi.string().max(250).required(),
+  description: Joi.string().max(250),
+  cost: Joi.required(),
+  price: Joi.required(),
+  provider: Joi.required(),
+  quantity: Joi.required(),
+  unit: Joi.required(),
+});
+
 const USER_VALIDATOR = Joi.object({
   name: Joi.string().min(5).max(50).required(),
   email: Joi.string().min(5).max(50).required().email(),
@@ -43,11 +53,11 @@ const RECIEPT_VALIDATION = Joi.object({
   }),
   billNumer: Joi.required(),
   discount: Joi.required(),
-  notes: Joi.string()
+  notes: Joi.string(),
 });
 module.exports = {
   USER_VALIDATOR,
-  
+  PRODUCT,
   AUTH_VALIDATOR,
   TAX_RECIPT_VALIDATOR,
   CLIENT_VALIDATOR,

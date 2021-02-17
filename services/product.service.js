@@ -2,26 +2,52 @@ const Model = require("../schemas/product.schema");
 const _ = require("lodash");
 
 async function get(pageNumber = 1, pageSize = 10, name = "", code = 0) {
-  const model = await Model.find({name: { $regex: '.*' + name + '.*', $options: 'i' }})
+  const data = await Model.find({
+    name: { $regex: ".*" + name + ".*", $options: "i" },
+  })
     .populate("provider", "name")
     .skip((parseInt(pageNumber) - 1) * parseInt(pageSize))
     .limit(parseInt(pageSize));
   const count = await Model.countDocuments();
 
-  return { model, count: { pageNumber, pageSize, count } };
+  return { data, count: { pageNumber, pageSize, count } };
 }
 
 async function post(req) {
-  const model = _.pick(req.body, [
+  const lastRecord = await Model.findOne(
+    {},
+    {},
+    { sort: { createDate: "-1" } }
+  );
+  data.taxed = JSON.parse(data.taxed);
+  data.code = lastRecord.code + 1;
+  const model = _.pick(data, [
     "name",
     "description",
     "cost",
+    "price",
     "provider",
     "quantity",
     "unit",
+    "taxed",
     "code",
   ]);
   return await new Model(model).save();
 }
 
-module.exports = { get, post };
+async function update(data) {
+  const model = _.pick(data, [
+    "name",
+    "description",
+    "cost",
+    "price",
+    "provider",
+    "quantity",
+    "unit",
+    "taxed",
+    "code",
+  ]);
+  return await  Model.findOneAndUpdate({_id: data._id}, {...model});
+}
+
+module.exports = { get, post, update };

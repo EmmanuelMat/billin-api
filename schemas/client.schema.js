@@ -1,4 +1,3 @@
-const { string } = require("joi");
 const context = require("../database/database.context");
 const clientSchema = new context.Schema({
   name: { type: String, required: true, maxlength: 250 },

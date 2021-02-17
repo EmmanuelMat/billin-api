@@ -3,7 +3,8 @@ const Double = require("@mongoosejs/double");
 const productSchema = new context.Schema({
   name: { required: true, maxlength: 250, type: String },
   description: { maxlength: 250, type: String },
-  code: { maxlength: 10, type: Number, required: true },
+  code: { maxlength: 10, type: Number},
+  price: { maxlength: 10, type: Number, required: true },
   cost: { type: Double },
   quantity: { type: Number },
   barcode: { type: Number },

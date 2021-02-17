@@ -8,10 +8,14 @@ router.get("/", async (req, res) => {
   res.json(model);
 });
 router.post("/", async (req, res) => {
-  const result = await service.post(req);
+  const result = await service.post(req.body);
+  res.json(result);
+});
+
+router.put("/", async (req, res) => {
+  const result = await service.update(req.body);
   res.json(result);
 });
 
 module.exports = router;
 
-//3242310

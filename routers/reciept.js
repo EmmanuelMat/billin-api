@@ -4,7 +4,8 @@ const service = require("../services/reciept.service");
 const printService = require("../services/print.reciept.service");
 
 router.get("/", async (req, res) => {
-  const model = await service.get();
+  const { pagenumber, pagesize, name } = req.query;
+  const model = await service.get(pagenumber, pagesize, name);
   res.json(model);
 });
 
@@ -17,8 +18,8 @@ router.get("/byid/:id", async (req, res) => {
 router.get("/print", async (req, res) => {
   const { id } = req.query;
   const model = await service.getById(id);
-  printService.printReciept(model)
-  res.send(true);;
+  printService.printReciept(model);
+  res.send(true);
 });
 
 router.get("/last", async (req, res) => {
@@ -31,6 +32,9 @@ router.post("/", async (req, res) => {
   res.json(result);
 });
 
+router.put("/", async (req, res) => {
+  const result = await service.update(req.body);
+  res.json(result);
+});
+
 module.exports = router;
-
-

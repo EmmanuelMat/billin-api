@@ -15,7 +15,6 @@ async function getByNameOrCode(name, code) {
   } else {
     model = Model.findOne({ code });
   }
-
   return model;
 }
 
@@ -31,18 +30,19 @@ async function exits(_id) {
   return await Model.exists({ _id });
 }
 
-async function update(data) {  
-  return await Model.findByIdAndUpdate(
-     data._id,
-    {
-      $set: {
-        name: data.name,
-        taxId: data.taxId,
-        cNumber: data.pNumber,
-        pNumber: data.pNumber,
-        address: data.address,
-      },
-    }
-  );
+async function update(data) {
+  return await Model.findByIdAndUpdate(data._id, {
+    $set: {
+      name: data.name,
+      taxId: data.taxId,
+      cNumber: data.pNumber,
+      pNumber: data.pNumber,
+      address: data.address,
+    },
+  });
 }
-module.exports = { get, post, exits, getByNameOrCode, update };
+
+async function update(data) {
+  return await Model.findOneAndUpdate({ _id: data._id }, { ...data });
+}
+module.exports = {update, get, post, exits, getByNameOrCode, update };
