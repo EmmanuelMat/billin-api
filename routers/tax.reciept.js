@@ -7,6 +7,13 @@ router.get("/", async (req, res) => {
   res.json(model);
 });
 
+router.get("/gen", async (req, res) => {
+  const { gov_id } = req.query;
+  const model = await service.generate(gov_id);
+  console.log(model);
+  res.json(model);
+});
+
 router.get("/last", async (req, res) => {
   const { taxreciept } = req.query;
   const model = await service.getLast(taxreciept);
