@@ -3,11 +3,7 @@ function _detailsHelper(data) {
       .map(
         (item) => `${item.code}          ${
           item.quantity
-        }    ${item.sellPrice.toFixed(2)}      ${pad(
-          (item.sellPrice * item.quantity).toFixed(2).toString(),
-          7,
-          " "
-        )} 
+        }    
         ${item.product.name.toLowerCase()}
       `
       )
@@ -24,7 +20,7 @@ module.exports =  (bill) => `
 Conduce
 
 Fecha: 01/13/2021 2:57:01 PM
-Numero de conduce: ${bill.billNumer}
+Numero de factura: ${bill.billNumer}
  
 cod  Prodt   cant   Ud price    Total
 -----------------------------------------
