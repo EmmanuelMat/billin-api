@@ -13,13 +13,12 @@ async function get(pageNumber = 1, pageSize = 10, name = "", code = 0) {
   return { data, count: { pageNumber, pageSize, count } };
 }
 
-async function post(req) {
+async function post(data) {
   const lastRecord = await Model.findOne(
     {},
     {},
     { sort: { createDate: "-1" } }
   );
-  data.taxed = JSON.parse(data.taxed);
   data.code = lastRecord.code + 1;
   const model = _.pick(data, [
     "name",
