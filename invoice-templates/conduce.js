@@ -1,3 +1,5 @@
+import dateFormat from "dateformat";
+
 function _detailsHelper(data) {
     return data
       .map(
@@ -12,14 +14,15 @@ function _detailsHelper(data) {
   }
 
 module.exports =  (bill) => `
-      FERRETERIA GUERRERO KADEYHE SRL
-   C/Duarte #49, Haina S.C, Frente Altice
-            Tel: (809) 957-5060
-              RNC: 131-93956-2
+    FERRETERIA GUERRERO KADEYHE SRL
+C/Duarte #49, Haina S.C, Frente Altice
+ ferreteriaguerrerokadeyhe@gmail.com
+         Tel: (809) 957-5060
+          RNC: 131-93956-2
 
 Conduce
 
-Fecha: 01/13/2021 2:57:01 PM
+Fecha: ${dateFormat(bill.createDate, "mm/dd/yyyy")}
 Numero de factura: ${bill.billNumer}
  
 cod  Prodt   cant   Ud price    Total

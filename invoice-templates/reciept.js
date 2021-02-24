@@ -1,3 +1,5 @@
+import dateFormat from "dateformat";
+
 const genTaxtReciept = (gov, sequence) => `${gov.serie}${gov.type}${sequence}`;
 
 function pad(n, width, z) {
@@ -28,12 +30,13 @@ function _detailsHelper(data) {
 module.exports = (bill) => `
       FERRETERIA GUERRERO KADEYHE SRL
    C/Duarte #49, Haina S.C, Frente Altice
+    ferreteriaguerrerokadeyhe@gmail.com
             Tel: (809) 957-5060
-              RNC: 131-93956-2
+             RNC: 131-93956-2
 
 ${bill.taxReciept.taxReciept.type == "00" ? "Conduce" : "Factura"}
 
-Fecha: 01/13/2021 2:57:01 PM
+Fecha: ${dateFormat(bill.createDate, "mm/dd/yyyy")}
 ${bill.taxReciept.taxReciept.type == "00"
     ? ""
     : `NCF : ${genTaxtReciept(
