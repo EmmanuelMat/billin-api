@@ -28,12 +28,14 @@ const PUPULATE_RECIEPT = [
 ];
 
 async function get(pageNumber = 1, pageSize = 10, code) {
-  // const regExp = new RegExp(`.*${code}.*`, "i")
+  const regExp = new RegExp(`.*${code}.*`, "i")
   const data = await Model.find({ $or: [{ billNumer: code }, {}] })
+  .sort({createDate: -1})
     .populate(PUPULATE_RECIEPT)
-    .skip((parseInt(pageNumber) - 1) * parseInt(pageSize))
+    .skip((parseInt(pageNumber)) * parseInt(pageSize))
     .limit(parseInt(pageSize));
   const count = await Model.countDocuments();
+  // const data = await Model.find()
   return { data, count: { pageNumber, pageSize: data.length, count } };
 }
 
@@ -81,7 +83,7 @@ async function saveUpdateClient(client) {
 
 async function update(data) {
   console.log(test, "test");
-  return {test, test2}
+  return { test, test2 }
 }
 
 

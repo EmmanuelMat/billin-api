@@ -1,4 +1,4 @@
-import dateFormat from "dateformat";
+const dateFormat = require("dateformat");
 
 const genTaxtReciept = (gov, sequence) => `${gov.serie}${gov.type}${sequence}`;
 

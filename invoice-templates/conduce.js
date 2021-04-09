@@ -1,19 +1,18 @@
-import dateFormat from "dateformat";
+const dateFormat = require("dateformat");
 
 function _detailsHelper(data) {
-    return data
-      .map(
-        (item) => `${item.code}          ${
-          item.quantity
+  return data
+    .map(
+      (item) => `${item.code}          ${item.quantity
         }    
         ${item.product.name.toLowerCase()}
       `
-      )
-      .join("") 
-      .replace(/^\s+/gm, "");
-  }
+    )
+    .join("")
+    .replace(/^\s+/gm, "");
+}
 
-module.exports =  (bill) => `
+module.exports = (bill) => `
     FERRETERIA GUERRERO KADEYHE SRL
 C/Duarte #49, Haina S.C, Frente Altice
  ferreteriaguerrerokadeyhe@gmail.com
