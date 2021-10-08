@@ -1,12 +1,12 @@
 const Model = require("../schemas/product.schema");
 const _ = require("lodash");
 
-async function get(pageNumber = 1, pageSize = 10, name = "", code = 0) {
+async function get(pageNumber = 0, pageSize = 10, name = "", code = 0) {
   const data = await Model.find({
     name: { $regex: ".*" + name + ".*", $options: "i" },
   })
     .populate("provider", "name")
-    .skip((parseInt(pageNumber) - 1) * parseInt(pageSize))
+    .skip((parseInt(pageNumber)) * parseInt(pageSize))
     .limit(parseInt(pageSize));
   const count = await Model.countDocuments();
 

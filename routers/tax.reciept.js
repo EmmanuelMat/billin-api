@@ -10,7 +10,6 @@ router.get("/", async (req, res) => {
 router.get("/gen", async (req, res) => {
   const { gov_id } = req.query;
   const model = await service.generate(gov_id);
-  console.log(model);
   res.json(model);
 });
 

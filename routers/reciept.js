@@ -1,8 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const service = require("../services/reciept.service");
-const printService = require("../services/print.reciept.service");
-
+const PrinterSingleton = require("../services/print.reciept.service");
+const printer = new PrinterSingleton()
 router.get("/", async (req, res) => {
   const { pagenumber, pagesize, name } = req.query;
   const model = await service.get(pagenumber, pagesize, name);
@@ -18,7 +18,8 @@ router.get("/byid/:id", async (req, res) => {
 router.get("/print", async (req, res) => {
   const { id } = req.query;
   const model = await service.getById(id);
-  printService.printReciept(model);
+  
+  printer.printReciept(model);
   res.send(true);
 });
 

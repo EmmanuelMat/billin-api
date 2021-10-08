@@ -28,10 +28,9 @@ const PUPULATE_RECIEPT = [
 ];
 
 async function get(pageNumber = 1, pageSize = 10, code) {
-  // const regExp = new RegExp(`.*${code}.*`, "i")
   const data = await Model.find({ $or: [{ billNumer: code }, {}] })
     .populate(PUPULATE_RECIEPT)
-    .skip((parseInt(pageNumber) - 1) * parseInt(pageSize))
+    .skip((parseInt(pageNumber)) * parseInt(pageSize))
     .limit(parseInt(pageSize));
   const count = await Model.countDocuments();
   return { data, count: { pageNumber, pageSize: data.length, count } };
@@ -51,6 +50,7 @@ async function post(data) {
     "details",
     "discount",
     "notes",
+    "amountPaid"
   ]);
   model.client = client;
   model.taxReciept = taxReciept._id;

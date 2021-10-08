@@ -7,7 +7,7 @@ const connectionstring = config
   .replace(CONNECTION_STRING.DATABASE, config.get("database.db"))
   .replace(CONNECTION_STRING.PASSWORD, config.get("database.pwd"));
 mongoose
-  .connect(connectionstring)
+  .connect(connectionstring, { useNewUrlParser: false })
   .then(() => console.log("connected"))
   .catch((err) => console.log(" not +++++++++++++++ connected", err));
 module.exports = mongoose;

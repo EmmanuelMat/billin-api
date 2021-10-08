@@ -52,8 +52,9 @@ const RECIEPT_VALIDATION = Joi.object({
     code: Joi.required(),
   }),
   billNumer: Joi.required(),
-  discount: Joi.required(),
-  notes: Joi.string(),
+  discount: Joi.string().allow(""),
+  notes: Joi.string().allow(""),
+  amountPaid: Joi.required()
 });
 module.exports = {
   USER_VALIDATOR,

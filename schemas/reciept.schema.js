@@ -12,8 +12,9 @@ const recieptSchema = new context.Schema({
   client: { type: context.Schema.Types.ObjectId, ref: "Clent" },
   details: { type: [recieptDetails.schema], required: true },
   billNumer: { type: Number, required: true },
-  discount: { type: Number, required: true },
-  notes: { type: String }
+  discount: { type: Number },
+  notes: { type: String },
+  amountPaid: {type: Double, required: true }
 });
 
 module.exports = context.model("Reciept", recieptSchema);
