@@ -6,7 +6,7 @@ async function get(pageNumber = 1, pageSize = 10, name = "", code = 0) {
     name: { $regex: ".*" + name + ".*", $options: "i" },
   },{},{sort: {createDate: 'descending'}})
     .populate("provider", "name")
-    .skip((parseInt(pageNumber) - 1) * parseInt(pageSize))
+    .skip((parseInt(pageNumber) ) * parseInt(pageSize))
     .limit(parseInt(pageSize));
   const count = await Model.countDocuments();
 

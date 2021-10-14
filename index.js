@@ -22,6 +22,10 @@ const config = require("config");
 const morgan = require("morgan");
 const helmet = require("helmet");
 const authMiddleware = require("./middleware/authMiddleware");
+// const { getById } = require("./services/reciept.service");
+// const { printReciept } = require("./services/print.reciept.service");
+
+// getById('616192812057810c983d4581').then(info => printReciept(info))
 // Routers middleware
 if (!config.get("jwtPrivateKey")) {
   console.error("FATAL ERROR: jwtPrivateKey IS NOT DEFINED");
@@ -41,6 +45,6 @@ app.use(ROUTES.RACIEPT, reciept);
 app.use(ROUTES.TAX, tax);
 app.use(errorthrowMiddleware);
 app.use(errorHandlingMiddleware);
-app.listen(5000, () => {
+app.listen(5001, () => {
   console.log("App listening on port 3000!");
 });
