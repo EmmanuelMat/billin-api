@@ -28,9 +28,10 @@ const PUPULATE_RECIEPT = [
 ];
 
 async function get(pageNumber = 1, pageSize = 10, code) {
-  const data = await Model.find({ $or: [{ billNumer: code }, {}] })
+  const data = await Model.find()
+    .sort({ createDate: "desc" })
     .populate(PUPULATE_RECIEPT)
-    .skip((parseInt(pageNumber)) * parseInt(pageSize))
+    .skip(parseInt(pageNumber) * parseInt(pageSize))
     .limit(parseInt(pageSize));
   const count = await Model.countDocuments();
   return { data, count: { pageNumber, pageSize: data.length, count } };
@@ -50,7 +51,7 @@ async function post(data) {
     "details",
     "discount",
     "notes",
-    "amountPaid"
+    "amountPaid",
   ]);
   model.client = client;
   model.taxReciept = taxReciept._id;
@@ -80,9 +81,25 @@ async function saveUpdateClient(client) {
 }
 
 async function update(data) {
-  console.log(test, "test");
-  return {test, test2}
+  return { test: "test" };
 }
 
+async function getByClientName(client_id) {
+  const data = await Model.find({ client: client_id }).populate(
+    PUPULATE_RECIEPT
+  );
+  const count = await Model.countDocuments();
+  return { data, count: { pageNumber: 1, pageSize: data.length, count } };
 
-module.exports = { update, get, post, getLastBill, getById };
+}
+
+async function getByBillNumber (billNumer) {
+  const data = await Model.findOne({ billNumer }).populate(
+    PUPULATE_RECIEPT
+  );
+  const count = await Model.countDocuments();
+  return { data: [data], count: { pageNumber: 1, pageSize: 1, count } };
+
+}
+
+module.exports = { update, get, post, getLastBill, getById, getByClientName, getByBillNumber };

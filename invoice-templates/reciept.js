@@ -14,7 +14,7 @@ function _detailsHelper(data) {
       (item) => `${item.code}          ${item.quantity
         }    ${item.sellPrice.toFixed(2)}      ${pad(
           (item.sellPrice * item.quantity).toFixed(2).toString(),
-          7,
+          8,
           " "
         )} 
     ${item.product.name.toLowerCase()}

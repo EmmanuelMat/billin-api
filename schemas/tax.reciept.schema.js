@@ -1,7 +1,7 @@
 const context = require("../database/database.context");
 const taxRecieptSchema = new context.Schema({
   taxReciept: {type: context.Schema.Types, required: true},
-  sequence: { type: String, required: true, maxlength: 7 },
+  sequence: { type: String, required: true, maxlength: 8 },
   isUsed: { type: Boolean, required: true },
   createDate: { type: Date, default: new Date()}
 });

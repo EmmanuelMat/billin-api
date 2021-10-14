@@ -32,7 +32,7 @@ const CLIENT_VALIDATOR = Joi.object({
 });
 
 const TAX_RECIPT_VALIDATOR = Joi.object({
-  sequence: Joi.string().min(7).max(7).required(),
+  sequence: Joi.string().min(8).max(8).required(),
   isUsed: Joi.boolean().required(),
   taxReciept: Joi.required(),
 });
@@ -52,7 +52,7 @@ const RECIEPT_VALIDATION = Joi.object({
     code: Joi.required(),
   }),
   billNumer: Joi.required(),
-  discount: Joi.string().allow(""),
+  discount: Joi.number(),
   notes: Joi.string().allow(""),
   amountPaid: Joi.required()
 });
