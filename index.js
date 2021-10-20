@@ -45,6 +45,6 @@ app.use(ROUTES.RACIEPT, reciept);
 app.use(ROUTES.TAX, tax);
 app.use(errorthrowMiddleware);
 app.use(errorHandlingMiddleware);
-app.listen(5001, () => {
+app.listen(5000, () => {
   console.log("App listening on port 3000!");
 });
