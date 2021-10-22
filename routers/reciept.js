@@ -16,10 +16,27 @@ router.get("/byid/:id", async (req, res) => {
 });
 
 router.get("/print", async (req, res) => {
+  const { id, conduce, copy } = req.query;
+  const model = await service.getById(id);
+
+  printer.printReciept(model, conduce, copy);
+  res.send(true);
+});
+
+
+router.get("/print/conduce", async (req, res) => {
   const { id } = req.query;
   const model = await service.getById(id);
 
-  printer.printReciept(model);
+  printer.printConduce(model);
+  res.send(true);
+});
+
+router.get("/print/copy", async (req, res) => {
+  const { id } = req.query;
+  const model = await service.getById(id);
+
+  printer.printCopy(model);
   res.send(true);
 });
 
