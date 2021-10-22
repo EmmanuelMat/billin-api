@@ -1,3 +1,6 @@
+const date = require('date-and-time');
+
+
 function _detailsHelper(data) {
     return data
       .map(
@@ -19,7 +22,7 @@ module.exports =  (bill) => `
 
 Conduce
 
-Fecha: 01/13/2021 2:57:01 PM
+Fecha: ${date.format(bill.createDate, 'DD/MM/YYYY HH:mm:ss')}
 Numero de factura: ${bill.billNumer}
  
 cod  Prodt   cant   Ud price    Total

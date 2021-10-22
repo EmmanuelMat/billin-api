@@ -1,3 +1,6 @@
+const date = require('date-and-time');
+
+
 const genTaxtReciept = (gov, sequence) => `${gov.serie}${gov.type}${sequence}`;
 
 function pad(n, width, z) {
@@ -33,7 +36,7 @@ module.exports = (bill) => `
 
 ${bill.taxReciept.taxReciept.type == "00" ? "Conduce" : "Factura"}
 
-Fecha: 01/13/2021 2:57:01 PM
+Fecha: ${date.format(bill.createDate, 'DD/MM/YYYY HH:mm:ss')}
 ${bill.taxReciept.taxReciept.type == "00"
     ? ""
     : `NCF : ${genTaxtReciept(
@@ -57,6 +60,9 @@ vendedor:
 Deybi G.              Subtotal: $${bill.subTotal.toFixed(2)}
                       ITBIS:    $${bill.tax.toFixed(2)} 
                       Total:     $${bill.totalPrice.toFixed(2)}
+
+                      efectivo:  $${bill.amountPaid.toFixed(2)}
+                      devuelta:  $${(bill.amountPaid - bill.totalPrice).toFixed(2)}
     
 Nombre : ${bill.client.name}
 Telefono : ${bill.client.pNumber}
