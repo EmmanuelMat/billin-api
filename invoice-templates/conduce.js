@@ -23,7 +23,7 @@ module.exports =  (bill) => `
 Conduce
 
 Fecha: ${date.format(bill.createDate, 'DD/MM/YYYY HH:mm:ss')}
-Numero de factura: ${bill.billNumer}
+Numero de conduce: ${bill.billNumer}
  
 cod  Prodt   cant   Ud price    Total
 -----------------------------------------
