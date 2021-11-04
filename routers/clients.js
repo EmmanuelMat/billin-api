@@ -8,8 +8,8 @@ router.get("/", async (req, res) => {
 });
 
 router.get("/by", async (req, res) => {
-  const { name, id } = req.query;
-  const model = await service.getByNameOrCode(name, id);
+  const {  pagenumber, pagesize, name } = req.query;
+  const model = await service.getByNameOrCode(pagenumber, pagesize, name);
 
   if (model === null) throw new Error("Cliente no existe");
 
@@ -17,7 +17,12 @@ router.get("/by", async (req, res) => {
 });
 
 router.post("/", async (req, res) => {
-  const result = await service.post(req.body);
+  const result = await service.post(req.body.data);
+  res.json(result);
+});
+
+router.put("/", async (req, res) => {
+  const result = await service.update(req.body.data);
   res.json(result);
 });
 

@@ -7,15 +7,15 @@ async function get() {
   return await Model.find();
 }
 
-async function getByNameOrCode(name, code) {
-  let model;
-  if (!code) {
-    const regExp = new RegExp(`.*${name}.*`, "i");
-    model = Model.find({ name: regExp });
-  } else {
-    model = Model.findOne({ code });
-  }
-  return model;
+async function getByNameOrCode(pagenumber = 1, pagesize = 10, name = "") {
+ 
+  const regExp = new RegExp(`.*${name}.*`, "i");
+  const data = await Model.find({ name: regExp })
+    .skip(parseInt(pagenumber) * parseInt(pagesize))
+    .limit(parseInt(pagesize));
+
+  const count = await Model.countDocuments();
+  return { data, count: { pagenumber, pagesize: data.length, count } };
 }
 
 async function post(data) {
@@ -45,4 +45,4 @@ async function update(data) {
 async function update(data) {
   return await Model.findOneAndUpdate({ _id: data._id }, { ...data });
 }
-module.exports = {update, get, post, exits, getByNameOrCode, update };
+module.exports = { update, get, post, exits, getByNameOrCode, update };
