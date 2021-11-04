@@ -4,7 +4,7 @@
         "name": "mongodb",
         "db": "fgk_db",
         "pwd": "0dgv0q9aAQrhKJpF",
-        "connectionstring": "mongodb+srv://emma_123:<password>@cluster0.jwtt5.gcp.mongodb.net/<dbname>?retryWrites=true&w=majority"
+        "connectionstring": "mongodb://localhost:27017/<dbname>?readPreference=primary&appname=MongoDB%20Compass&directConnection=true&ssl=false"
         
     }
 }

@@ -11,14 +11,17 @@ function printConduce(bill) {
   print(conduce(bill));
 }
 
-function print(template, cb) {
+function print(template, cb = () => { }, cb2 = () => { }) {
   p.printDirect({
     data: template,
     type: "RAW",
     success: function (jobID) {
       console.log("sent to printer with ID: " + jobID);
-      setTimeout(cb, 3000);
-      cb();
+      setTimeout(() => {
+        cb()
+        cb2()
+
+      }, 5000);
     },
     error: function (err) {
       console.log(err);
@@ -37,15 +40,22 @@ class PrinterSingleton {
     Object.freeze(this);
   }
 
-  printReciept(bill, copy = false, conduce = false) {
+  printReciept(bill, copy, conduce) {
     if (conduce) {
       print(reciept(bill), this.printConduce(bill));
+      console.log("conduce", conduce)
       return;
     }
 
     if (copy) {
       print(reciept(bill), this.printCopy(bill));
+      console.log("copy", copy)
+      return
     }
+
+
+    this.print(reciept(bill));
+
   }
 
   printConduce(bill) {
