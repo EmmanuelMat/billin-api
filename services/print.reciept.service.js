@@ -2,11 +2,12 @@ const p = require("printer");
 const conduce = require("../invoice-templates/conduce");
 const copy = require("../invoice-templates/copy");
 const reciept = require("../invoice-templates/reciept");
+const EventEmitter = require("events")
 
 
-
-class PrinterSingleton {
+class PrinterSingleton extends EventEmitter {
   constructor() {
+    super()
     if (PrinterSingleton.instance instanceof PrinterSingleton) {
       return PrinterSingleton.instance;
     }
@@ -17,20 +18,9 @@ class PrinterSingleton {
   }
 
   printReciept(bill, copy, conduce) {
-    if (conduce  == true) {
-      this.print(reciept(bill), this.printConduce(bill));
-      console.log("conduce", conduce)
-      return;
-    }
-
-    if (copy == true) {
-      this.print(reciept(bill), this.printCopy(bill));
-      console.log("copy", copy)
-      return
-    }
-
-
-    this.print(reciept(bill));
+      this.print(reciept(bill));
+   
+      this.on("print", console.log)
 
   }
 
@@ -42,13 +32,12 @@ class PrinterSingleton {
     print(copy(bill));
   }
 
-  print(template, cb = () => { }, cb2 = () => { }) {
+  print(template, conduce, copy) {
     p.printDirect({
       data: template,
       type: "RAW",
       success: function (jobID) {
-        console.log("sent to printer with ID: " + jobID);
-    
+       this.emit("print", {jobID, conduce, copy })
       },
       error: function (err) {
         console.log(err);
