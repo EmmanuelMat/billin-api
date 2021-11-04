@@ -8,7 +8,6 @@ async function get() {
 }
 
 async function getByNameOrCode(pagenumber = 1, pagesize = 10, name = "") {
- 
   const regExp = new RegExp(`.*${name}.*`, "i");
   const data = await Model.find({ name: regExp })
     .skip(parseInt(pagenumber) * parseInt(pagesize))

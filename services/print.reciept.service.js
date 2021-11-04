@@ -3,31 +3,7 @@ const conduce = require("../invoice-templates/conduce");
 const copy = require("../invoice-templates/copy");
 const reciept = require("../invoice-templates/reciept");
 
-function printReciept(bill) {
-  print(reciept(bill));
-}
 
-function printConduce(bill) {
-  print(conduce(bill));
-}
-
-function print(template, cb = () => { }, cb2 = () => { }) {
-  p.printDirect({
-    data: template,
-    type: "RAW",
-    success: function (jobID) {
-      console.log("sent to printer with ID: " + jobID);
-      setTimeout(() => {
-        cb()
-        cb2()
-
-      }, 5000);
-    },
-    error: function (err) {
-      console.log(err);
-    },
-  });
-}
 
 class PrinterSingleton {
   constructor() {
@@ -41,14 +17,14 @@ class PrinterSingleton {
   }
 
   printReciept(bill, copy, conduce) {
-    if (conduce) {
-      print(reciept(bill), this.printConduce(bill));
+    if (conduce  == true) {
+      this.print(reciept(bill), this.printConduce(bill));
       console.log("conduce", conduce)
       return;
     }
 
-    if (copy) {
-      print(reciept(bill), this.printCopy(bill));
+    if (copy == true) {
+      this.print(reciept(bill), this.printCopy(bill));
       console.log("copy", copy)
       return
     }
@@ -66,12 +42,13 @@ class PrinterSingleton {
     print(copy(bill));
   }
 
-  print(template) {
-    this.printer.printDirect({
+  print(template, cb = () => { }, cb2 = () => { }) {
+    p.printDirect({
       data: template,
       type: "RAW",
       success: function (jobID) {
         console.log("sent to printer with ID: " + jobID);
+    
       },
       error: function (err) {
         console.log(err);
