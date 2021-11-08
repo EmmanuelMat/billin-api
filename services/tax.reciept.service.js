@@ -43,7 +43,6 @@ async function generate(gov_id = "5ffb47828f1bc6e77a8791ba") {
     path: "taxReciept",
     model: "TaxRecieptGovSchema",
   });
-  console.log(lastRecord.sequence)
   lastRecord.sequence = parseInt(lastRecord.sequence) + 1;
   lastRecord.sequence = pad(lastRecord.sequence, 8);
   lastRecord.taxRecieptId = genTaxtReciept(

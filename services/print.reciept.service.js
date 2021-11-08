@@ -2,12 +2,32 @@ const p = require("printer");
 const conduce = require("../invoice-templates/conduce");
 const copy = require("../invoice-templates/copy");
 const reciept = require("../invoice-templates/reciept");
-const EventEmitter = require("events")
+const EventEmitter = require("events");
 
-
-class PrinterSingleton extends EventEmitter {
+class PrintEmitter extends EventEmitter {
   constructor() {
     super()
+  }
+
+}
+
+const printEmitter = new PrintEmitter();
+printEmitter.on("print", ({ bill, conduce, copy }) => {
+  const printer = new PrinterSingleton()
+  if (copy)
+    setTimeout(() => {
+      printer.printCopy(bill)
+    }, 5000);
+
+  if (conduce)
+    setTimeout(() => {
+      printer.printConduce(bill)
+    }, 10000);
+})
+
+
+class PrinterSingleton {
+  constructor() {
     if (PrinterSingleton.instance instanceof PrinterSingleton) {
       return PrinterSingleton.instance;
     }
@@ -17,32 +37,34 @@ class PrinterSingleton extends EventEmitter {
     Object.freeze(this);
   }
 
-  printReciept(bill, copy, conduce) {
-      this.print(reciept(bill));
-   
-      this.on("print", console.log)
+  printReciept = (bill, copy = 'false', conduce = "false") => {
+    this.print(reciept(bill), JSON.parse(copy), JSON.parse(conduce), bill);
+
 
   }
 
   printConduce(bill) {
-    print(conduce(bill));
+    this.print(conduce(bill));
   }
 
   printCopy(bill) {
-    print(copy(bill));
+    this.print(copy(bill));
   }
 
-  print(template, conduce, copy) {
+  print(template, conduce, copy, bill) {
+
     p.printDirect({
       data: template,
       type: "RAW",
-      success: function (jobID) {
-       this.emit("print", {jobID, conduce, copy })
+      success: (jobID) => {
+        printEmitter.emit("print", { bill, conduce, copy })
+
       },
       error: function (err) {
         console.log(err);
       },
     });
+
   }
 }
 
