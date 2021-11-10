@@ -12,17 +12,17 @@ class PrintEmitter extends EventEmitter {
 }
 
 const printEmitter = new PrintEmitter();
-printEmitter.on("print", ({ bill, conduce, copy }) => {
+printEmitter.on("print", ({ bill, copy, conduce }) => {
   const printer = new PrinterSingleton()
-  if (copy)
-    setTimeout(() => {
-      printer.printCopy(bill)
-    }, 5000);
-
   if (conduce)
     setTimeout(() => {
+      printer.printCopy(bill)
+    }, 3000);
+
+  if (copy)
+    setTimeout(() => {
       printer.printConduce(bill)
-    }, 10000);
+    }, 5000);
 })
 
 

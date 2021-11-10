@@ -1,4 +1,4 @@
-//  require("express-async-errors");
+ require("express-async-errors");
 const express = require("express");
 const app = express();
 var cors = require("cors");
@@ -42,5 +42,5 @@ app.use(ROUTES.TAX, tax);
 app.use(errorthrowMiddleware);
 app.use(errorHandlingMiddleware);
 app.listen(5000, () => {
-  console.log("App listening on port 3000!");
+  console.log("App listening on port 5000!");
 });
