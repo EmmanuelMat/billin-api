@@ -34,7 +34,6 @@ async function get(pageNumber = 1, pageSize = 10, code) {
     .skip(parseInt(pageNumber) * parseInt(pageSize))
     .limit(parseInt(pageSize));
   const count = await Model.countDocuments();
-  console.log({ data, count: { pageNumber, pageSize: data.length, count } })
   return { data, count: { pageNumber, pageSize: data.length, count } };
 }
 
