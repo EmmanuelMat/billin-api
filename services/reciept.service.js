@@ -65,8 +65,11 @@ async function getLastBill() {
 }
 
 async function getById(_id) {
-  return Model.findOne({ _id }).populate(PUPULATE_RECIEPT);
-}
+const x = await Model.findOne({ _id }).populate(PUPULATE_RECIEPT);
+console.log(x)
+return x
+}  
+
 
 async function saveUpdateClient(client) {
   const isClient = await clientService.exits(client._id);

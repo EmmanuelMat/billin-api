@@ -3,6 +3,7 @@ const router = express.Router();
 const service = require("../services/reciept.service");
 const PrinterSingleton = require("../services/print.reciept.service");
 const printer = new PrinterSingleton();
+
 router.get("/", async (req, res) => {
   const { pagenumber, pagesize, name } = req.query;
   const model = await service.get(pagenumber, pagesize, name);
@@ -27,7 +28,7 @@ router.get("/print", async (req, res) => {
 router.get("/print/conduce", async (req, res) => {
   const { id } = req.query;
   const model = await service.getById(id);
-
+console.log(model);
   printer.printConduce(model);
   res.send(true);
 });

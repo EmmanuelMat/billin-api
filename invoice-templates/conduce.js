@@ -33,6 +33,7 @@ vendedor:
 Deybi G.          
     
 Nombre : ${bill.client.name}
+RNC:  ${bill.client.taxId}
 Telefono : ${bill.client.pNumber}
 Celular : ${bill.client.cNumber}
 Direccion : ${bill.client.address}

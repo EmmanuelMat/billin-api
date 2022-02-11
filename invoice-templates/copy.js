@@ -45,7 +45,7 @@ ${bill.taxReciept.taxReciept.type == "00"
       bill.taxReciept.taxReciept,
       bill.taxReciept.sequence
     ).toUpperCase()}
-Vencimiento de secuencia 31/12/21`
+Vencimiento de secuencia 31/12/22`
   }
 ${bill.taxReciept.taxReciept.type == "00"
     ? "Numero de conduce"
@@ -67,6 +67,7 @@ Deybi G.              Subtotal: $${bill.subTotal.toFixed(2)}
                       devuelta:  $${(bill.amountPaid - bill.totalPrice).toFixed(2)}
     
 Nombre : ${bill.client.name}
+RNC:  ${bill.client.taxId}
 Telefono : ${bill.client.pNumber}
 Celular : ${bill.client.cNumber}
 Direccion : ${bill.client.address}

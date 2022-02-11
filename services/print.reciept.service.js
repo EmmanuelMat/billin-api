@@ -52,7 +52,6 @@ class PrinterSingleton {
   }
 
   print(template, conduce, copy, bill) {
-
     p.printDirect({
       data: template,
       type: "RAW",
